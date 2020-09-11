@@ -46,7 +46,10 @@ class WebSocketClient {
       }
 
       if (this.connectionFailCount === 0) {
-        console.log('[WS] Websocket connecting to ' + connectionUrl);
+        console.log('[WS] Websocket connecting to '
+        
+        
+        + connectionUrl);
       }
 
       this.conn = new WebSocket(connectionUrl);

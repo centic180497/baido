@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   CardActionArea,
   CardMedia,
@@ -22,48 +22,57 @@ import {
 } from '@material-ui/core';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { Close as CloseIcon, Edit as EditIcon, Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
-
+// import FormAdd from "components/sitemap_page/component/Form/Form";
 import { makeStyles } from '@material-ui/core/styles';
-import Seach from "./component/Seach/Seach"
-import Listitem from "./component/Listitem/Listitem"
-import Form from "./component/form/Form"
+import Seach from './component/Seach/Seach';
+import Listitem from './component/Listitem/Listitem';
+import FormAddPage from '../sitemap_page/component/Form/Form';
+import AutocompleteCpn from 'components/sitemap_page/component/Form/autocomplete'
 
 function SitemapPage(props) {
   const classes = useStyles();
-
+  const [isshowmodel, setisshowmodel] = useState(false);
+  const showModal = (e) => {
+    setisshowmodel(true);
+  };
   // useEffect(() => {
   //   props.isSeachcam(props.political);
   //   props.Province();
   // }, []);
+
   return (
     <div className={classes.wrapGrid}>
-      <Grid container className={classes.root}>
-        <Grid item xs={12}>
-          <Paper className={classes.listmenu}>
-            <Tabs value={0} indicatorColor="primary" textColor="primary" aria-label="disabled tabs example">
-              <Tab className={classes.customTab} label="Danh Sách" />
-            </Tabs>
-          </Paper>
+      <div className={classes.listCamera}>
+        <Grid container className={classes.root}>
+          <Grid item xs={12}>
+            <Paper className={classes.listmenu}>
+              <Tabs value={0} indicatorColor="primary" textColor="primary" aria-label="disabled tabs example">
+                <Tab className={classes.customTab} label="Danh Sách" />
+              </Tabs>
+            </Paper>
+          </Grid>
+          <Grid className={classes.paper} item xs={12}>
+            <Scrollbars>
+              <div>
+                <Seach />
+                <Listitem />
+              </div>
+            </Scrollbars>
+          </Grid>
+
+          <div className={classes.listCard}>
+            <Tooltip title="Add" aria-label="add">
+              <Fab color="primary" className={classes.fab} onClick={(e) => showModal(e)}>
+                <AddIcon />
+              </Fab>
+            </Tooltip>
+          </div>
         </Grid>
-        <Grid className={classes.paper} item xs={12}>
-          <Scrollbars>
-            <div>
-                <Seach/>
-                <Listitem/>
-            </div>
-          </Scrollbars>
-        </Grid>
-        <div className={classes.listCard}>
-              <Tooltip title="Add" aria-label="add">
-                <Fab color="primary" className={classes.fab} onClick={(e) => this.showModal(e)}>
-                  <AddIcon />
-                </Fab>
-              </Tooltip>
-            </div>
-      </Grid>
-      <div className={classes.Form}>
-          <Form/>
-        </div>
+        <div className={classes.showform}>{isshowmodel ? <AutocompleteCpn /> : null}</div>
+      </div>
+      {/* <div className={classes.Form}>
+        <Form />
+      </div> */}
       {/* <div className={classes.siteMap}>
        
           <div className={classes.infoCamera}>
@@ -83,6 +92,11 @@ function SitemapPage(props) {
 export default SitemapPage;
 
 const useStyles = makeStyles((theme) => ({
+  listCamera: {
+    height: '100%',
+    width: 'auto',
+    display: 'flex',
+  },
   root: {
     width: '400px',
     zIndex: 3,
@@ -90,10 +104,10 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     position: 'relative',
   },
-  listmenu: {
-    width: '100%',
+  showform: {
+    display: 'flex',
   },
-  customTab: {
+  listmenu: {
     width: '100%',
   },
   paper: {
@@ -101,15 +115,15 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
   listCard: {
-    display: "flex",
-    flexDirection: "column"
+    display: 'flex',
+    flexDirection: 'column',
   },
   bground: {
     backgroundColor: '#e0e0e0',
   },
   customCard: {
     padding: 0,
-    margin: "0 15px",
+    margin: '0 15px',
     '&:last-child': {
       padding: 0,
     },
@@ -118,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
   },
   sizeitem: {
-    fontSize: '14px'
+    fontSize: '14px',
   },
   map: {
     height: '100%',
@@ -141,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
- 
+
   fab: {
     position: 'absolute',
     bottom: 3,
@@ -179,7 +193,7 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: '8px',
   },
   color: {
-    color: "red",
+    color: 'red',
   },
   formadd: {
     height: '100%',
@@ -187,11 +201,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   setheight: {
-    height: '100%'
+    height: '100%',
   },
-  scroll: {
-
-  },
+  scroll: {},
   closeButton: {
     position: 'absolute',
     right: theme.spacing(0),
@@ -199,64 +211,64 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.grey[500],
   },
   listCard: {
-    display: "flex",
-    flexDirection: "column"
+    display: 'flex',
+    flexDirection: 'column',
   },
   siteMap: {
-    display: "flex",
-    height: "100vh",
-    width: "100%"
+    display: 'flex',
+    height: '100vh',
+    width: '100%',
   },
   infoCamera: {
     width: 320,
-    padding: 10
+    padding: 10,
   },
-  title:{
-    fontSize:14,
-    paddingLeft:'6px'
+  title: {
+    fontSize: 14,
+    paddingLeft: '6px',
   },
   map: {
-    width: "100%",
-    height: "100%"
+    width: '100%',
+    height: '100%',
   },
   card: {
-    display: "flex",
-    alignItems: "center",
-    padding: "0 10px",
-    justifyContent: "flex-start"
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 10px',
+    justifyContent: 'flex-start',
   },
   media: {
     height: 70,
-    width: 70
+    width: 70,
   },
   textInfo: {
-    marginLeft: 10
+    marginLeft: 10,
   },
   tooltip: {
     padding: 5,
-    marginRight: 5
+    marginRight: 5,
   },
-  logtitle:{
+  logtitle: {
     margin: '0',
     padding: '8px',
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)'
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
   },
   dialog: {
-    display: "flex",
-    flexDirection: "column",
-    height: "calc(100vh - 100px)"
+    display: 'flex',
+    flexDirection: 'column',
+    height: 'calc(100vh - 100px)',
   },
-  logblack:{
+  logblack: {
     fontSize: '1.25rem',
     fontFamily: 'Roboto, Helvetica, Arial, sanSerif',
     fontWeight: 500,
     lineHeight: 1.6,
     letterSpacing: '0.0075em',
-    margin:'6px'
+    margin: '6px',
   },
-  Form:{
-    width:'500px',
+  Form: {
+    width: '500px',
     marginLeft: '500px',
-    marginTop: '50px'
-  }
+    marginTop: '50px',
+  },
 }));

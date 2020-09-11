@@ -19,9 +19,9 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
           size="small"
           options={
             // options.province_list.length > 0 ? options.province_list : []
-            []
+            option
           }
-          getOptionLabel={(option) => option.label}
+          getOptionLabel={(option) => option.name}
           noOptionsText={'Không có lựa chọn'}
           // disableCloseOnSelect
           value={props.searchCam}
@@ -35,7 +35,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
                 checked={selected}
                 color="primary"
               />
-              {option.label}
+              {option.name}
             </React.Fragment>
           )}
           renderInput={(params) => (
